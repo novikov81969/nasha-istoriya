@@ -82,16 +82,24 @@ npm run preview
 
 ## Публикация на GitHub Pages
 
+Сайт уже опубликован: **https://novikov81969.github.io/nasha-istoriya/**
+
+Репозиторий: **https://github.com/novikov81969/nasha-istoriya**
+
+Публикация автоматическая: при каждом пуше в `main` GitHub Actions собирает проект и выкладывает `dist` на GitHub Pages (`.github/workflows/deploy.yml`). Отдельно собирать и куда-то копировать ничего не нужно.
+
+Проверить или перезапустить сборку: вкладка **Actions** в репозитории → workflow **Deploy to GitHub Pages** → **Re-run jobs**, либо:
+
 ```bash
-npm run build
+gh workflow run deploy.yml
 ```
 
-Затем выложите содержимое папки `dist` в ветку `gh-pages` (или включите GitHub Pages для папки `docs`, предварительно переименовав `dist` в `docs`).
-
-В `vite.config.ts` уже стоит `base: './'`, поэтому сборка работает и из подпапки вида `https://username.github.io/repo/`.
+В `vite.config.ts` стоит `base: './'`, поэтому сборка корректно работает из подпапки вида `https://username.github.io/repo/`.
 
 ---
 
 ## Важно
 
-Это личный подарок. Перед публикацией в открытом доступе подумайте, стоит ли выкладывать переписку и фотографии — возможно, лучше оставить сайт локальным или закрытым по ссылке.
+Это личный подарок. Сайт и репозиторий сейчас **публичные**: переписка и фотографии доступны любому, у кого есть ссылка, и могут попасть в поисковики (в `public/robots.txt` индексация закрыта, но это не гарантия).
+
+Если захочется закрыть: сделайте репозиторий приватным (`gh repo edit --visibility private --accept-visibility-change-consequences`) — GitHub Pages при этом отключится, и сайт останется доступен только локально через `npm run preview`.
