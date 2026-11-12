@@ -73,7 +73,6 @@ export default function Intro({ onStart, resumeLabel, onResume }: Props) {
         <span className="intro-heart" aria-hidden="true">
           ♥
         </span>
-        <span>{site.girlName} · 2026</span>
       </div>
     </section>
   );
