@@ -1463,12 +1463,20 @@ button {
 
 .cell-3,
 .cell-4,
-.cell-5 {
+.cell-5,
+.cell-6,
+.cell-7,
+.cell-8 {
   grid-column: span 4;
 }
 
-.cell-6 {
-  grid-column: 4 / span 6;
+.cell-9 {
+  grid-column: span 6;
+}
+
+.cell-10,
+.cell-11 {
+  grid-column: span 3;
 }
 
 .gallery-cell .photo {
@@ -1487,12 +1495,17 @@ button {
 
   .cell-3 .photo-frame,
   .cell-4 .photo-frame,
-  .cell-5 .photo-frame {
+  .cell-5 .photo-frame,
+  .cell-6 .photo-frame,
+  .cell-7 .photo-frame,
+  .cell-8 .photo-frame {
     height: clamp(210px, 21vw, 270px);
     aspect-ratio: auto;
   }
 
-  .cell-6 .photo-frame {
+  .cell-9 .photo-frame,
+  .cell-10 .photo-frame,
+  .cell-11 .photo-frame {
     height: clamp(230px, 24vw, 310px);
     aspect-ratio: auto;
   }
@@ -1531,6 +1544,21 @@ button {
 .gallery-cell:nth-child(7) .photo {
   animation-delay: 0.47s;
 }
+.gallery-cell:nth-child(8) .photo {
+  animation-delay: 0.54s;
+}
+.gallery-cell:nth-child(9) .photo {
+  animation-delay: 0.61s;
+}
+.gallery-cell:nth-child(10) .photo {
+  animation-delay: 0.68s;
+}
+.gallery-cell:nth-child(11) .photo {
+  animation-delay: 0.75s;
+}
+.gallery-cell:nth-child(12) .photo {
+  animation-delay: 0.82s;
+}
 
 .gallery-photo .photo-frame {
   border-radius: var(--r-md);
@@ -1543,6 +1571,79 @@ button {
 
 .gallery-photo figcaption {
   font-size: 0.92rem;
+}
+
+/* кошачьи ушки — не обрезаем верх кадра */
+.gallery-cell.cell-2 .photo-frame img {
+  object-position: center 16%;
+}
+
+/* ---------- Скрытая папка ---------- */
+
+.secret-album {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.2rem, 5vw, 3.4rem);
+}
+
+.secret-open {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 58px;
+  padding: 0.7rem 1.5rem 0.7rem 0.95rem;
+  border: 1px dashed rgba(233, 166, 173, 0.38);
+  border-radius: 999px;
+  background: rgba(233, 166, 173, 0.055);
+  color: var(--cream-2);
+  cursor: pointer;
+  transition:
+    background 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+.secret-open:hover {
+  transform: translateY(-2px);
+  border-color: rgba(233, 166, 173, 0.65);
+  background: rgba(233, 166, 173, 0.12);
+}
+
+.secret-open-icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(233, 166, 173, 0.12);
+  color: var(--rose);
+}
+
+.secret-open-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.secret-open-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+}
+
+.secret-open-text strong {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 500;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.secret-open-text small {
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* ---------- Конверт и письмо ---------- */
@@ -1923,6 +2024,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: clamp(1rem, 4vw, 3rem);
+  overflow: hidden;
   background: rgba(8, 6, 10, 0.93);
   backdrop-filter: blur(18px);
   animation: fadeIn 0.25s var(--ease);
@@ -1953,7 +2055,8 @@ button {
 }
 
 .lightbox-close,
-.lightbox-fs {
+.lightbox-fs,
+.lightbox-zoom {
   display: grid;
   place-items: center;
   width: 44px;
@@ -1968,7 +2071,18 @@ button {
   cursor: pointer;
   transition:
     background 0.3s,
-    border-color 0.3s;
+    border-color 0.3s,
+    opacity 0.3s;
+}
+
+.lightbox-zoom {
+  font-size: 1.3rem;
+  font-family: var(--sans);
+}
+
+.lightbox-zoom:disabled {
+  opacity: 0.32;
+  cursor: default;
 }
 
 .lightbox-fs svg {
@@ -1977,7 +2091,8 @@ button {
 }
 
 .lightbox-close:hover,
-.lightbox-fs:hover {
+.lightbox-fs:hover,
+.lightbox-zoom:not(:disabled):hover {
   border-color: rgba(233, 166, 173, 0.5);
   background: rgba(233, 166, 173, 0.12);
 }
@@ -1998,6 +2113,22 @@ button {
   gap: 1rem;
   max-width: min(100%, 1080px);
   margin: 0;
+  touch-action: none;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.lightbox-figure.is-zoomed {
+  cursor: grab;
+}
+
+.lightbox-figure.is-zoomed:active {
+  cursor: grabbing;
+}
+
+.lightbox-figure.is-zoomed figcaption {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .lightbox-figure img {
@@ -2005,6 +2136,9 @@ button {
   max-height: 76vh;
   border-radius: 12px;
   object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
   box-shadow: 0 40px 100px -40px #000;
 }
 
@@ -2019,6 +2153,18 @@ button {
   font-size: 1rem;
   font-style: italic;
   text-align: center;
+  transition: opacity 0.25s var(--ease);
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 2.9rem;
+  display: none;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .lightbox-nav {
@@ -2282,17 +2428,22 @@ button {
   }
 
   .cell-2 {
-    grid-column: span 6;
+    grid-column: span 3;
   }
 
   .cell-3,
   .cell-4,
-  .cell-5 {
+  .cell-5,
+  .cell-6,
+  .cell-7,
+  .cell-8 {
     grid-column: span 3;
   }
 
-  .cell-6 {
-    grid-column: 2 / span 4;
+  .cell-9,
+  .cell-10,
+  .cell-11 {
+    grid-column: span 3;
   }
 }
 
@@ -2309,14 +2460,24 @@ button {
     aspect-ratio: auto;
   }
 
-  .cell-3 .photo-frame,
+  .cell-2 .photo-frame,
+  .cell-3 .photo-frame {
+    height: clamp(300px, 50vw, 430px);
+    aspect-ratio: auto;
+  }
+
   .cell-4 .photo-frame,
-  .cell-5 .photo-frame {
+  .cell-5 .photo-frame,
+  .cell-6 .photo-frame,
+  .cell-7 .photo-frame,
+  .cell-8 .photo-frame {
     height: clamp(180px, 24vw, 240px);
     aspect-ratio: auto;
   }
 
-  .cell-6 .photo-frame {
+  .cell-9 .photo-frame,
+  .cell-10 .photo-frame,
+  .cell-11 .photo-frame {
     height: clamp(210px, 28vw, 280px);
     aspect-ratio: auto;
   }
@@ -2456,14 +2617,25 @@ button {
 
   .cell-0,
   .cell-1,
-  .cell-2 {
-    grid-column: span 1;
-  }
-
+  .cell-2,
   .cell-3,
   .cell-4,
   .cell-5,
-  .cell-6 {
+  .cell-6,
+  .cell-7,
+  .cell-8,
+  .cell-9,
+  .cell-10,
+  .cell-11 {
+    grid-column: span 1;
+  }
+
+  .cell-0,
+  .gallery-cell.is-chat {
+    grid-column: 1 / -1;
+  }
+
+  .cell-7 {
     grid-column: 1 / -1;
   }
 
@@ -2552,6 +2724,14 @@ button {
     gap: 0.35rem;
   }
 
+  .lightbox-actions {
+    gap: 0.35rem;
+  }
+
+  .lightbox-top {
+    padding: 1rem 0.85rem;
+  }
+
   .progress-meta {
     font-size: 0.53rem;
     letter-spacing: 0.16em;
@@ -2638,6 +2818,10 @@ button {
 
   .photo:hover .photo-frame img {
     transform: none;
+  }
+
+  .lightbox-hint {
+    display: block;
   }
 }
 

@@ -54,6 +54,14 @@ export const photos = {
   nutella: 'images/photo-nutella.jpg',
   nutellaClean: 'images/photo-nutella-clean.jpg',
   family: 'images/photo-family.jpg',
+  kiss: 'images/photo-kiss.jpg',
+  catEars: 'images/photo-cat-ears.jpg',
+  bed: 'images/photo-bed.jpg',
+  hoodie: 'images/photo-hoodie.jpg',
+  case: 'images/photo-case.jpg',
+  secretKiss: 'images/secret-kiss.jpg',
+  secretFirst: 'images/secret-first.jpg',
+  secretBath: 'images/secret-bath.jpg',
 };
 
 export const intro = {
@@ -130,6 +138,20 @@ export const chapters: Chapter[] = [
     ],
     highlight: ['Иногда лучшие сюрпризы получаются случайно.'],
     side: 'left',
+    gallery: [
+      {
+        src: photos.hoodie,
+        alt: 'Ты в маечке, которую я подарил',
+        caption: 'Та самая маечка',
+        kind: 'photo',
+      },
+      {
+        src: photos.case,
+        alt: 'Ты показываешь новый чехол с феечкой Винкс',
+        caption: 'И новый чехол с феечкой Винкс',
+        kind: 'photo',
+      },
+    ],
   },
   {
     id: 'chapter-5',
@@ -232,6 +254,18 @@ export const chapters: Chapter[] = [
     interactive: 'hearts',
     gallery: [
       {
+        src: photos.catEars,
+        alt: 'Ты в кошачьих ушках',
+        caption: 'Кошачьи ушки тебе очень идут',
+        kind: 'photo',
+      },
+      {
+        src: photos.bed,
+        alt: 'Ты мило лежишь на кровати',
+        caption: 'Тот самый уютный вечер',
+        kind: 'photo',
+      },
+      {
         src: photos.chatPhoto,
         alt: 'Скриншот переписки про фотографии во дворе',
         caption: 'Ты правда любила мои фотки',
@@ -258,6 +292,12 @@ export const chapters: Chapter[] = [
     ],
     highlight: ['Наша история только начинается.'],
     side: 'left',
+    photo: {
+      src: photos.kiss,
+      alt: 'Мы целуемся',
+      caption: 'Просто мы',
+      kind: 'photo',
+    },
   },
 ];
 
@@ -274,6 +314,18 @@ export const gallery = {
       kind: 'photo' as const,
     },
     {
+      src: photos.kiss,
+      alt: 'Мы целуемся',
+      caption: 'Просто мы',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.catEars,
+      alt: 'Ты в кошачьих ушках',
+      caption: 'Кошачьи ушки тебе очень идут',
+      kind: 'photo' as const,
+    },
+    {
       src: photos.nutella,
       alt: 'Мы вдвоём после вечера с нутеллой',
       caption: '28 августа',
@@ -283,6 +335,24 @@ export const gallery = {
       src: photos.nutellaClean,
       alt: 'Мы отмылись после нутеллы',
       caption: 'И почти сразу — отмылись',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.bed,
+      alt: 'Ты мило лежишь на кровати',
+      caption: 'Тот самый уютный вечер',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.hoodie,
+      alt: 'Ты в маечке, которую я подарил',
+      caption: 'В маечке, которую я подарил',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.case,
+      alt: 'Ты показываешь новый чехол с феечкой Винкс',
+      caption: 'Новый чехол с феечкой Винкс',
       kind: 'photo' as const,
     },
     {
@@ -308,6 +378,33 @@ export const gallery = {
       alt: 'Переписка про фотографии и «кружочки»',
       caption: 'Про фотки и кружочки',
       kind: 'chat' as const,
+    },
+  ],
+};
+
+/** Скрытая папка: открывается кнопкой «Секрет» в фотоальбоме. */
+export const secretAlbum = {
+  eyebrow: 'только для нас',
+  title: 'Секрет',
+  hint: 'Нажми, если это точно ты',
+  items: [
+    {
+      src: photos.secretKiss,
+      alt: 'Скрытое фото: мини засос',
+      caption: 'Мой мини засос',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.secretFirst,
+      alt: 'Скрытое фото: первая мини интим фотка',
+      caption: 'Первая мини интим фотка',
+      kind: 'photo' as const,
+    },
+    {
+      src: photos.secretBath,
+      alt: 'Скрытое фото: фото из ванны',
+      caption: 'Фото из ванны',
+      kind: 'photo' as const,
     },
   ],
 };

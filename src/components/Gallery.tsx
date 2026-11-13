@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import Photo from './Photo';
 import Lightbox from './Lightbox';
-import { gallery } from '../content';
+import { LockIcon } from './icons';
+import { gallery, secretAlbum } from '../content';
 
 type Props = {
   onNext: () => void;
@@ -13,6 +14,7 @@ export default function Gallery({ onNext, onPrev }: Props) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [visible, setVisible] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [secretIndex, setSecretIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const el = ref.current;
@@ -55,7 +57,10 @@ export default function Gallery({ onNext, onPrev }: Props) {
 
         <div className="gallery-grid">
           {gallery.items.map((item, i) => (
-            <div className={`gallery-cell cell-${i}`} key={item.src + i}>
+            <div
+              className={`gallery-cell cell-${i} ${item.kind === 'chat' ? 'is-chat' : ''}`.trim()}
+              key={item.src + i}
+            >
               <Photo
                 src={item.src}
                 alt={item.alt}
@@ -67,6 +72,23 @@ export default function Gallery({ onNext, onPrev }: Props) {
               />
             </div>
           ))}
+        </div>
+
+        <div className="secret-album">
+          <button
+            type="button"
+            className="secret-open"
+            onClick={() => setSecretIndex(0)}
+            aria-haspopup="dialog"
+          >
+            <span className="secret-open-icon" aria-hidden="true">
+              <LockIcon />
+            </span>
+            <span className="secret-open-text">
+              <strong>{secretAlbum.title}</strong>
+              <small>{secretAlbum.hint}</small>
+            </span>
+          </button>
         </div>
 
         <div className="chapter-actions">
@@ -97,6 +119,15 @@ export default function Gallery({ onNext, onPrev }: Props) {
           index={lightbox}
           onClose={() => setLightbox(null)}
           onIndexChange={setLightbox}
+        />
+      )}
+
+      {secretIndex !== null && (
+        <Lightbox
+          items={secretAlbum.items}
+          index={secretIndex}
+          onClose={() => setSecretIndex(null)}
+          onIndexChange={setSecretIndex}
         />
       )}
     </section>

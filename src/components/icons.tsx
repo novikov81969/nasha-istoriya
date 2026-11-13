@@ -36,6 +36,18 @@ export function SpeakerIcon({ muted }: { muted: boolean }) {
   );
 }
 
+export function LockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="10" width="14" height="10" rx="2.4" />
+        <path d="M8.5 10V7.6a3.5 3.5 0 0 1 7 0V10" />
+        <path d="M12 14v2.2" />
+      </g>
+    </svg>
+  );
+}
+
 export function ExpandIcon({ collapsed }: { collapsed: boolean }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
