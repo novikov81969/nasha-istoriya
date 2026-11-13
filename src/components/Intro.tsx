@@ -65,6 +65,7 @@ export default function Intro({ onStart, resumeLabel, onResume }: Props) {
           )}
         </div>
 
+        <p className="intro-meta">{intro.meta}</p>
         <p className="note">{site.authorNote}</p>
       </div>
 

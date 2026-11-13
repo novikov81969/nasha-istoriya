@@ -64,7 +64,7 @@ export function InviteCard() {
             Приглашение принято <span aria-hidden="true">❤</span>
           </p>
         ) : (
-          <button type="button" className="invite-btn" onClick={() => setAccepted(true)}>
+          <button type="button" className="btn primary small" onClick={() => setAccepted(true)}>
             Принять приглашение
           </button>
         )}

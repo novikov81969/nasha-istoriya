@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { MediaItem } from '../content';
+import { ExpandIcon } from './icons';
 
 type Props = {
   items: MediaItem[];
@@ -9,10 +10,28 @@ type Props = {
 };
 
 export default function Lightbox({ items, index, onClose, onIndexChange }: Props) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const touchX = useRef<number | null>(null);
+  const [fsAvailable, setFsAvailable] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const item = items[index];
   const hasMany = items.length > 1;
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    } else {
+      rootRef.current?.requestFullscreen().catch(() => {});
+    }
+  };
+
+  useEffect(() => {
+    setFsAvailable(Boolean(document.fullscreenEnabled));
+    const onFsChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
 
   const go = (dir: -1 | 1) => {
     onIndexChange((index + dir + items.length) % items.length);
@@ -29,6 +48,7 @@ export default function Lightbox({ items, index, onClose, onIndexChange }: Props
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        if (document.fullscreenElement) return;
         e.preventDefault();
         onClose();
       }
@@ -58,6 +78,7 @@ export default function Lightbox({ items, index, onClose, onIndexChange }: Props
 
   return (
     <div
+      ref={rootRef}
       className="lightbox"
       role="dialog"
       aria-modal="true"
@@ -77,9 +98,26 @@ export default function Lightbox({ items, index, onClose, onIndexChange }: Props
         <span className="lightbox-counter">
           {String(index + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
         </span>
-        <button ref={closeRef} className="lightbox-close" onClick={onClose} aria-label="Закрыть">
-          ×
-        </button>
+        <div className="lightbox-actions">
+          {fsAvailable && (
+            <button
+              type="button"
+              className="lightbox-fs"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleFullscreen();
+              }}
+              aria-label={isFullscreen ? 'Выйти из полноэкранного режима' : 'Открыть на весь экран'}
+              aria-pressed={isFullscreen}
+              title={isFullscreen ? 'Свернуть' : 'На весь экран'}
+            >
+              <ExpandIcon collapsed={isFullscreen} />
+            </button>
+          )}
+          <button ref={closeRef} className="lightbox-close" onClick={onClose} aria-label="Закрыть">
+            ×
+          </button>
+        </div>
       </div>
 
       <div className="lightbox-stage" onClick={(e) => e.stopPropagation()}>
