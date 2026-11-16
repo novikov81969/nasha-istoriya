@@ -138,20 +138,6 @@ export const chapters: Chapter[] = [
     ],
     highlight: ['Иногда лучшие сюрпризы получаются случайно.'],
     side: 'left',
-    gallery: [
-      {
-        src: photos.hoodie,
-        alt: 'Ты в маечке, которую я подарил',
-        caption: 'Та самая маечка',
-        kind: 'photo',
-      },
-      {
-        src: photos.case,
-        alt: 'Ты показываешь новый чехол с феечкой Винкс',
-        caption: 'И новый чехол с феечкой Винкс',
-        kind: 'photo',
-      },
-    ],
   },
   {
     id: 'chapter-5',
@@ -263,6 +249,18 @@ export const chapters: Chapter[] = [
         src: photos.bed,
         alt: 'Ты мило лежишь на кровати',
         caption: 'Тот самый уютный вечер',
+        kind: 'photo',
+      },
+      {
+        src: photos.hoodie,
+        alt: 'Ты в маечке, которую я подарил',
+        caption: 'Та самая маечка',
+        kind: 'photo',
+      },
+      {
+        src: photos.case,
+        alt: 'Ты показываешь новый чехол с феечкой Винкс',
+        caption: 'И новый чехол с феечкой Винкс',
         kind: 'photo',
       },
       {
